@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quà tặng nè 💝</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffd1dc,#ffb6c1);
+    background-size:400% 400%;
+    animation:bg 10s ease infinite;
+    text-align:center;
+}
+@keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.box{
+    position:relative;
+    z-index:10;
+    background:white;
+    width:400px;
+    margin:120px auto;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    margin:10px;
+}
+.yes{background:#ff69b4;color:white}
+.no{background:#d3d3d3}
+
+.gift{font-size:80px;cursor:pointer}
+
+/* tim bay */
+.heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:20px;
+    animation:heartFly 6s linear forwards;
+}
+@keyframes heartFly{
+    to{transform:translateY(-110vh) scale(1.5);opacity:0}
+}
+
+/* pháo hoa */
+.spark{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    pointer-events:none;
+}
+
+/* chữ chạy */
+.marquee{
+    position:fixed;
+    bottom:20px;
+    left:-100%;
+    width:100%;
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
+    text-shadow:0 0 10px #ff69b4;
+    animation:runText 8s linear infinite;
+    z-index:20;
+}
+@keyframes runText{
+    from{left:-100%}
+    to{left:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="content">
+<h2>🎉 Chúc mừng bạn đã nhận được một phần quà 🎉</h2>
+<div class="gift" onclick="openGift()">🎁</div>
+<p>(Nhấn vào món quà đi nè)</p>
+</div>
+
+<script>
+let refuseCount=0;
+
+function openGift(){
+    content.innerHTML=`
+    <h2>💌 Bạn có muốn đi chơi hội trại với mình không?</h2>
+    <button class="yes" onclick="yes()">💖 Đồng ý</button>
+    <button class="no" onclick="no()">💔 Không đồng ý</button>`;
+}
+
+function no(){
+    refuseCount++;
+    let m=[
+        "🥺 Buồn vậy… cho mình xin chọn lại nha",
+        "😢 Thiệt luôn á? Mình mong lắm đó…",
+        "🥹 Từ chối hoài vậy là mình buồn thiệt á",
+        "😤 Đi hội trại 1 mình buồn lắm đó, chọn lại đi mà 😝"
+    ];
+    content.innerHTML=`
+    <h2>${m[Math.min(refuseCount-1,m.length-1)]}</h2>
+    <button onclick="openGift()">👉 Chọn lại nè</button>`;
+}
+
+function yes(){
+    startFireworks();
+
+    const lines=[
+        "💌 Đang kiểm tra phần quà...",
+        "🎁 Đang mở hộp quà...",
+        "💖 Và phần thưởng của bạn là...",
+        "✨ Một người sẽ đi hội trại cùng bạn ✨",
+        "🥰 Và sẽ cười với bạn suốt ngày hôm đó",
+        "💞 Cảm ơn vì đã chọn mình nha 💞"
+    ];
+    let i=0;
+    content.innerHTML=`<h2 id="text"></h2>`;
+    let it=setInterval(()=>{
+        if(i<lines.length){
+            text.innerHTML=lines[i++];
+        }else{
+            clearInterval(it);
+            showMarquee();
+        }
+    },1200);
+}
+
+/* tim bay */
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},500);
+
+/* pháo hoa */
+function startFireworks(){
+    let t=setInterval(()=>{
+        explode(Math.random()*innerWidth,Math.random()*innerHeight*0.6);
+    },400);
+    setTimeout(()=>clearInterval(t),4000);
+}
+
+function explode(x,y){
+    for(let i=0;i<16;i++){
+        let s=document.createElement("div");
+        s.className="spark";
+        s.style.left=x+"px";
+        s.style.top=y+"px";
+        s.style.background=`hsl(${Math.random()*360},100%,60%)`;
+        document.body.appendChild(s);
+
+        let a=Math.random()*2*Math.PI;
+        let d=80+Math.random()*40;
+        s.animate([
+            {transform:"translate(0,0)",opacity:1},
+            {transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}
+        ],{duration:800,easing:"ease-out"});
+
+        setTimeout(()=>s.remove(),800);
+    }
+}
+
+/* chữ chạy cuối */
+function showMarquee(){
+    const mq=document.createElement("div");
+    mq.className="marquee";
+    mq.innerHTML="🎪 Chúc bạn chơi hội trại thật vui vẻ nhaaa 🎉💖";
+    document.body.appendChild(mq);
+}
+</script>
+
+</body>
+</html>
