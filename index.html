@@ -22,14 +22,17 @@ body{
 }
 
 .box{
-    position:relative;
-    z-index:10;
     background:white;
     width:400px;
     margin:120px auto;
     padding:30px;
     border-radius:20px;
     box-shadow:0 10px 25px rgba(0,0,0,.25);
+    animation:pop .8s ease;
+}
+@keyframes pop{
+    from{transform:scale(.7);opacity:0}
+    to{transform:scale(1);opacity:1}
 }
 
 button{
@@ -38,21 +41,33 @@ button{
     border-radius:10px;
     cursor:pointer;
     margin:10px;
+    font-size:16px;
+    transition:.3s;
 }
+button:hover{transform:scale(1.1)}
 .yes{background:#ff69b4;color:white}
 .no{background:#d3d3d3}
 
-.gift{font-size:80px;cursor:pointer}
+.gift{
+    font-size:90px;
+    cursor:pointer;
+    animation:shake 1.5s infinite;
+}
+@keyframes shake{
+    0%,100%{transform:rotate(0)}
+    25%{transform:rotate(6deg)}
+    75%{transform:rotate(-6deg)}
+}
 
-/* tim bay */
+/* tim bay nền */
 .heart{
     position:absolute;
     bottom:-20px;
-    font-size:20px;
+    font-size:22px;
     animation:heartFly 6s linear forwards;
 }
 @keyframes heartFly{
-    to{transform:translateY(-110vh) scale(1.5);opacity:0}
+    to{transform:translateY(-110vh) scale(1.6);opacity:0}
 }
 
 /* pháo hoa */
@@ -73,9 +88,8 @@ button{
     font-size:22px;
     font-weight:bold;
     color:#fff;
-    text-shadow:0 0 10px #ff69b4;
-    animation:runText 8s linear infinite;
-    z-index:20;
+    text-shadow:0 0 12px #ff69b4;
+    animation:runText 10s linear infinite;
 }
 @keyframes runText{
     from{left:-100%}
@@ -94,6 +108,8 @@ button{
 
 <script>
 let refuseCount=0;
+let marqueeShown=false;
+let fireMode=0; // 0: tròn, 1: tim, 2: LOVE
 
 function openGift(){
     content.innerHTML=`
@@ -117,7 +133,6 @@ function no(){
 
 function yes(){
     startFireworks();
-
     const lines=[
         "💌 Đang kiểm tra phần quà...",
         "🎁 Đang mở hộp quà...",
@@ -128,17 +143,30 @@ function yes(){
     ];
     let i=0;
     content.innerHTML=`<h2 id="text"></h2>`;
-    let it=setInterval(()=>{
-        if(i<lines.length){
-            text.innerHTML=lines[i++];
-        }else{
-            clearInterval(it);
-            showMarquee();
-        }
-    },1200);
+    typeLine(lines,i);
 }
 
-/* tim bay */
+function typeLine(lines,i){
+    if(i>=lines.length){
+        if(!marqueeShown){
+            showMarquee();
+            marqueeShown=true;
+        }
+        return;
+    }
+    let t="",j=0,line=lines[i];
+    let typer=setInterval(()=>{
+        if(j<line.length){
+            t+=line[j++];
+            text.innerHTML=t;
+        }else{
+            clearInterval(typer);
+            setTimeout(()=>typeLine(lines,i+1),900);
+        }
+    },50);
+}
+
+/* tim bay nền */
 setInterval(()=>{
     let h=document.createElement("div");
     h.className="heart";
@@ -146,39 +174,78 @@ setInterval(()=>{
     h.style.left=Math.random()*100+"vw";
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),6000);
-},500);
+},400);
 
-/* pháo hoa */
+/* PHÁO HOA */
 function startFireworks(){
     let t=setInterval(()=>{
-        explode(Math.random()*innerWidth,Math.random()*innerHeight*0.6);
-    },400);
-    setTimeout(()=>clearInterval(t),4000);
+        let x=Math.random()*innerWidth;
+        let y=Math.random()*innerHeight*0.6;
+        if(fireMode===0) explodeCircle(x,y);
+        if(fireMode===1) explodeHeart(x,y);
+        if(fireMode===2) explodeLOVE(x,y);
+        fireMode=(fireMode+1)%3;
+    },600);
+    setTimeout(()=>clearInterval(t),6000);
 }
 
-function explode(x,y){
-    for(let i=0;i<16;i++){
-        let s=document.createElement("div");
-        s.className="spark";
-        s.style.left=x+"px";
-        s.style.top=y+"px";
-        s.style.background=`hsl(${Math.random()*360},100%,60%)`;
-        document.body.appendChild(s);
+function spark(x,y,dx,dy){
+    let s=document.createElement("div");
+    s.className="spark";
+    s.style.left=x+"px";
+    s.style.top=y+"px";
+    s.style.background=`hsl(${Math.random()*360},100%,60%)`;
+    document.body.appendChild(s);
+    s.animate([
+        {transform:"translate(0,0)",opacity:1},
+        {transform:`translate(${dx}px,${dy}px)`,opacity:0}
+    ],{duration:900,easing:"ease-out"});
+    setTimeout(()=>s.remove(),900);
+}
 
+/* tròn */
+function explodeCircle(x,y){
+    for(let i=0;i<20;i++){
         let a=Math.random()*2*Math.PI;
-        let d=80+Math.random()*40;
-        s.animate([
-            {transform:"translate(0,0)",opacity:1},
-            {transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}
-        ],{duration:800,easing:"ease-out"});
-
-        setTimeout(()=>s.remove(),800);
+        let d=90;
+        spark(x,y,Math.cos(a)*d,Math.sin(a)*d);
     }
+}
+
+/* TIM */
+function explodeHeart(x,y){
+    for(let t=0;t<Math.PI*2;t+=0.2){
+        let r=16*(1-Math.sin(t));
+        let dx=r*Math.cos(t)*3;
+        let dy=-r*Math.sin(t)*3;
+        spark(x,y,dx,dy);
+    }
+}
+
+/* LOVE */
+function explodeLOVE(x,y){
+    const text="LOVE";
+    [...text].forEach((c,i)=>{
+        let d=document.createElement("div");
+        d.style.position="absolute";
+        d.style.left=x+"px";
+        d.style.top=y+"px";
+        d.style.color="#ff69b4";
+        d.style.fontSize="26px";
+        d.style.fontWeight="bold";
+        d.innerHTML=c;
+        document.body.appendChild(d);
+        d.animate([
+            {transform:"translate(0,0)",opacity:1},
+            {transform:`translate(${(i-1.5)*40}px,-80px)`,opacity:0}
+        ],{duration:1200,easing:"ease-out"});
+        setTimeout(()=>d.remove(),1200);
+    });
 }
 
 /* chữ chạy cuối */
 function showMarquee(){
-    const mq=document.createElement("div");
+    let mq=document.createElement("div");
     mq.className="marquee";
     mq.innerHTML="🎪 Chúc bạn chơi hội trại thật vui vẻ nhaaa 🎉💖";
     document.body.appendChild(mq);
