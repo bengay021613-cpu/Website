@@ -2,300 +2,320 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Bất ngờ cho Chi 💝</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<title>Quiz Lưu Quang Vũ</title>
 
 <style>
+
 body{
-    margin:0;
-    min-height:100vh;
-    background:
-      radial-gradient(circle at top, #ffe0f0, transparent 60%),
-      linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
-    background-size:200% 200%;
-    animation:bgMove 15s ease infinite;
-    font-family:'Quicksand',sans-serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#6dd5fa,#2980b9);
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+#box{
+background:white;
+width:650px;
+max-width:90%;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
 }
 
-.box{
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(12px);
-    padding:35px;
-    border-radius:30px;
-    max-width:540px;
-    width:92%;
-    text-align:center;
-    box-shadow:0 25px 50px rgba(0,0,0,.25);
-    animation:pop 0.7s ease;
+h2{
+margin-bottom:20px;
 }
 
-@keyframes pop{
-    from{opacity:0;transform:scale(.85)}
-    to{opacity:1;transform:scale(1)}
+.answer{
+display:block;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+border:2px solid #ddd;
+cursor:pointer;
+transition:0.25s;
 }
 
-h1,h2{
-    font-family:'Pacifico',cursive;
-    color:#ff5fa2;
+.answer:hover{
+transform:scale(1.05);
+background:#f2f8ff;
 }
 
-.marquee{
-    overflow:hidden;
-    white-space:nowrap;
-}
-.marquee span{
-    display:inline-block;
-    animation:runText 12s linear infinite;
-    font-size:17px;
-}
-@keyframes runText{
-    from{transform:translateX(100%)}
-    to{transform:translateX(-100%)}
+.correct{
+background:#2ecc71;
+color:white;
 }
 
-button{
-    padding:12px 26px;
-    margin:12px;
-    border:none;
-    border-radius:30px;
-    font-size:16px;
-    cursor:pointer;
-    transition:.25s;
-}
-button:hover{transform:scale(1.1)}
-
-.yes{
-    background:linear-gradient(135deg,#ff5fa2,#ff8ccf);
-    color:white;
-}
-.no{background:#eee}
-
-select{
-    padding:10px;
-    margin:8px 0;
-    width:90%;
-    border-radius:16px;
-    border:1px solid #ccc;
-    font-size:15px;
+.wrong{
+background:#e74c3c;
+color:white;
 }
 
-img{
-    width:100%;
-    border-radius:22px;
-    margin:18px 0;
+#next{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+background:#3498db;
+color:white;
+border-radius:10px;
+cursor:pointer;
 }
 
-.hidden{display:none}
-
-.topping-list{
-    text-align:left;
-    margin-top:10px;
-}
-.topping-list label{
-    display:block;
-    margin:8px 0;
-    cursor:pointer;
+#next:hover{
+background:#217dbb;
 }
 
-/* HÓA ĐƠN */
-.invoice{
-    text-align:left;
-    background:#fff;
-    border-radius:18px;
-    padding:18px;
-    box-shadow:inset 0 0 0 2px #ffd1e8;
-}
-.invoice h3{
-    text-align:center;
-    margin:5px 0 15px;
-    color:#ff5fa2;
-}
-.invoice p{
-    margin:6px 0;
-    font-size:15px;
-}
-.footer-note{
-    text-align:center;
-    margin-top:15px;
-    font-size:14px;
-    color:#888;
-}
-.invoice-marquee {
-    overflow: hidden;
-    white-space: nowrap;
-    margin-top: 12px;
-}
-.invoice-marquee span {
-    display: inline-block;
-    animation: invoiceRun 10s linear infinite;
-    font-size: 15px;
-    color: #ff5fa2;
-    font-weight: 600;
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
 }
 
-@keyframes invoiceRun {
-    from { transform: translateX(100%); }
-    to   { transform: translateX(-100%); }
-}
 </style>
 </head>
 
 <body>
 
-<div class="box" id="screen1">
-<h1>🎁 Hành trình chạm đến trái tim =))) 🎁</h1>
-<div class="marquee"><span>✨ Bấm vô đây là có bất ngờ liền nè Chi ơi ✨</span></div>
-<button class="yes" onclick="toScreen2()">Bấm nè</button>
-</div>
+<canvas id="confetti"></canvas>
 
-<div class="box hidden" id="screen2">
-<h2>Tiếp sức cho Chi học tốt chơi giỏi nè 🥤</h2>
-<p>Chi muốn uống thì nhấn đồng ý nha 💖</p>
-<button class="yes" onclick="toScreen3()">Đồng ý</button>
-<button class="no" onclick="refuse()">Không đồng ý</button>
-<p id="spamText"></p>
-</div>
+<div id="box">
 
-<div class="box hidden" id="screen3">
-<h2>✨ Menu nước nè Chi ✨</h2>
-<img src="https://scontent-hkg1-2.xx.fbcdn.net/v/t39.30808-6/505740280_1168975271696706_5855511700228737138_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFxZIULQyx-WPuxuozf4LEBSQ9s3DPL34VJD2zcM8vfhfvg0nmgkVuW_5LKcAzUAenDrP_GvQEa6WuyEwEsbZ2H&_nc_ohc=gLhAz6d0X0AQ7kNvwFMl9Ip&_nc_oc=Adnf_yP7QAGyJah0VDVkzsKbMKoO0b5WHNQsE6eqpIkL3zx3ZjPxuluNbb2rppTJ3dc&_nc_zt=23&_nc_ht=scontent-hkg1-2.xx&_nc_gid=3Q7WOYwIav6soFCMuAOuJA&oh=00_AfohyqYLWXM-3trYwGTEQTFewnmbWhlJHLRDSrmKOQlRlg&oe=696C10E6">
+<div id="start">
 
-<p>🥤 Chọn loại nước:</p>
-<select id="drink">
-<option>Hồng Trà Ngô Gia</option>
-<option>Hồng Trà Kem Cheese</option>
-<option>Trà Xanh Kem Cheese</option>
-<option>Ô Long Kem Cheese</option>
-<option>Trà Ô Long Bí Đao</option>
-<option>Hồng Trà Chanh</option>
-<option>Hồng Trà Chanh Vải Thiều</option>
-<option>Bí Đao Chanh / Trà Xanh Chanh</option>
-<option>Hồng Trà Đào / Trà Xanh / Ô Long Đào</option>
-<option>Trà Chanh Ổi Hồng</option>
-<option>Trà Ô Long Nho</option>
-<option>Hồng Trà Latte</option>
-<option>Latte Vải Thiều</option>
-<option>Bí Đao Latte</option>
-<option>Ô Long / Trà Xanh Latte</option>
-<option>Trân Châu Đường Đen Latte</option>
-<option>Trà Sữa Đài Loan</option>
-<option>Ô Long / Trà Xanh Sữa</option>
-<option>Trà Sữa Vải Thiều / Bí Đao</option>
-<option>Trà Sữa Trân Châu Đường Đen</option>
-<option>Trà Sữa Socola</option>
-<option>Hồng Trà Đài Loan (Thuần Trà)</option>
-<option>Hồng Trà Vải Thiều</option>
-<option>Trà Bí Đao Ngô Gia</option>
-<option>Trà Xanh Hoa Nhài</option>
-<option>Trà Ô Long Mộc Hương</option>
-</select>
+<h1>Mini Quiz</h1>
 
-<p>📏 Chọn size:</p>
-<select id="size"><option>M</option><option>L</option></select>
+<p>Chúng ta cùng tìm hiểu về tác giả Lưu Quang Vũ</p>
 
-<p>🍬 Độ đường:</p>
-<select id="sugar">
-<option>100%</option><option>70%</option><option>50%</option><option>30%</option><option>Không đường</option>
-</select>
+<br><br>
 
-<p>🧊 Lượng đá:</p>
-<select id="ice">
-<option>Nhiều đá</option><option>Đá bình thường</option><option>Ít đá</option><option>Không đá</option>
-</select>
-
-<button class="yes" onclick="toScreenTopping()">Tiếp nè 💕</button>
-</div>
-
-<div class="box hidden" id="screenTopping">
-<h2>🍡 Chọn topping nha Chi 🍡</h2>
-<img src="https://scontent-hkg1-2.xx.fbcdn.net/v/t39.30808-6/506010621_1168992138361686_7834881191766781794_n.jpg?stp=dst-jpg_s261x260_tt6&_nc_cat=102&ccb=1-7&_nc_sid=bd9a62&_nc_eui2=AeHwe6Ki-c-qVcC0Ryzb3Z6PPrkcsziqEk4-uRyzOKoSTnfSit5AScgTOv8WyfeuZ86YVIN8f2PJrwyN78vXzRX2&_nc_ohc=PqSGNZz_P_8Q7kNvwFiq3Ih&_nc_oc=AdleqD4_LuwIlW360TiSr8uR-LSWeuaU63WNYoEA8B0-zT6QSFHc6oCdQ9EMHs38xIM&_nc_zt=23&_nc_ht=scontent-hkg1-2.xx&_nc_gid=3Q7WOYwIav6soFCMuAOuJA&oh=00_Afpuf0WcUjXeADHSPoQjTU26VDyA_GNmjgwgrFV3PXfY3A&oe=696C301B">
-
-<div class="topping-list">
-<label><input type="checkbox" value="Thạch sương sáo"> Thạch sương sáo</label>
-<label><input type="checkbox" value="Hạt é"> Hạt é</label>
-<label><input type="checkbox" value="Thạch dừa nguyên vị"> Thạch dừa nguyên vị</label>
-<label><input type="checkbox" value="Thạch O Ngô Gia"> Thạch O Ngô Gia</label>
-
-<label><input type="checkbox" value="Hạt sen"> Hạt sen</label>
-<label><input type="checkbox" value="Kem tươi vani"> Kem tươi vani</label>
-<label><input type="checkbox" value="Pudding trứng"> Pudding trứng</label>
-<label><input type="checkbox" value="Kem cheese"> Kem cheese</label>
-<label><input type="checkbox" value="Thạch sữa viên"> Thạch sữa viên</label>
-
-<label><input type="checkbox" value="Thạch sợi lá dứa"> Thạch sợi lá dứa</label>
-<label><input type="checkbox" value="Trân châu 3Q trắng"> Trân châu 3Q trắng</label>
-<label><input type="checkbox" value="Trân châu đường đen"> Trân châu đường đen</label>
-
-<label><input type="checkbox" value="Hạt thủy tinh lúa mạch"> Hạt thủy tinh lúa mạch</label>
-<label><input type="checkbox" value="Hạt thủy tinh củ năng"> Hạt thủy tinh củ năng</label>
-<label><input type="checkbox" value="Thạch Aiyu"> Thạch Aiyu</label>
-
-<label><input type="checkbox" value="Thạch dừa hương đào"> Thạch dừa hương đào</label>
-<label><input type="checkbox" value="Đào miếng"> Đào miếng</label>
-<label><input type="checkbox" value="Thạch sương sáo viên"> Thạch sương sáo viên</label>
-
-<label><input type="checkbox" value="Khoai môn nghiền"> Khoai môn nghiền</label>
-<label><input type="checkbox" value="Trân châu hoàng kim baby"> Trân châu hoàng kim baby</label>
-<label><input type="checkbox" value="Trân châu khoai môn"> Trân châu khoai môn</label>
+<button onclick="startQuiz()" id="next">Bắt đầu</button>
 
 </div>
 
-<button class="yes" onclick="finishOrder()">Xác nhận đơn 💖</button>
+<div id="quiz" style="display:none">
+
+<h2 id="question"></h2>
+
+<div id="answers"></div>
+
+<button id="next" onclick="nextQuestion()">Câu tiếp theo</button>
+
 </div>
 
-<div class="box hidden" id="screen4">
-<h2>💌 Hóa đơn của Chi 💌</h2>
-<div class="invoice" id="orderResult"></div>
-<div class="footer-note">Chúc Chi ngày mới vui vẻ, xinh hơn và cười nhiều hơn nhe</div>
 </div>
 
 <script>
-let refuseCount=0;
-function toScreen2(){screen1.classList.add("hidden");screen2.classList.remove("hidden")}
-function refuse(){
-    refuseCount++;
-    spamText.innerHTML += "Sao Chi ko uống Chi chê tui à 😭<br>";
 
-    if (refuseCount >= 5) {
-        spamText.innerHTML += "<b>Bùn zậy :( Uống cho đẹp da nì 💖</b><br>";
-    }
+const quiz=[
+
+{
+q:"Lưu Quang Vũ sinh năm nào?",
+a:["1948","1950","1945","1960"],
+correct:0
+},
+
+{
+q:"Lưu Quang Vũ sinh ra ở đâu?",
+a:["Hà Nội","Phú Thọ","Huế","Đà Nẵng"],
+correct:1
+},
+
+{
+q:"Lĩnh vực Lưu Quang Vũ nổi tiếng nhất là gì?",
+a:["Tiểu thuyết","Hội họa","Kịch","Âm nhạc"],
+correct:2
+},
+
+{
+q:"Ông được biết đến như một trong những nhà viết kịch nổi bật của Việt Nam thời kỳ nào?",
+a:["Sau 1975","Trước 1945","Thời trung đại","Thời phong kiến"],
+correct:0
+},
+
+{
+q:"Tác phẩm nào sau đây là của Lưu Quang Vũ?",
+a:["Tôi và chúng ta","Tắt đèn","Số đỏ","Vợ chồng A Phủ"],
+correct:0
 }
-function toScreen3(){screen2.classList.add("hidden");screen3.classList.remove("hidden")}
-function toScreenTopping(){screen3.classList.add("hidden");screenTopping.classList.remove("hidden")}
-function finishOrder(){
-    let drink=document.getElementById("drink").value;
-    let size=document.getElementById("size").value;
-    let sugar=document.getElementById("sugar").value;
-    let ice=document.getElementById("ice").value;
-    let toppings=[];
-    document.querySelectorAll('.topping-list input:checked').forEach(i=>toppings.push(i.value));
 
-    screenTopping.classList.add("hidden");
-    screen4.classList.remove("hidden");
+]
 
-    orderResult.innerHTML = `
-<h3>🧾 HÓA ĐƠN TRÀ SỮA</h3>
-<p>🥤 Nước: <b>${drink}</b></p>
-<p>📏 Size: ${size}</p>
-<p>🍬 Đường: ${sugar}</p>
-<p>🧊 Đá: ${ice}</p>
-<p>🍡 Topping: ${toppings.length ? toppings.join(", ") : "Không topping 😌"}</p>
+let current=0
+let score=0
+let answered=false
 
-<div class="invoice-marquee">
-    <span>💖 Món quà nhỏ nhỏ thôi nhưng tôi vẫn mong là nó giúp Chi vui hơn một chút😳💖</span>
-</div>
-`;
+const question=document.getElementById("question")
+const answers=document.getElementById("answers")
+
+function startQuiz(){
+
+document.getElementById("start").style.display="none"
+document.getElementById("quiz").style.display="block"
+
+loadQuestion()
+
 }
+
+function loadQuestion(){
+
+answered=false
+
+let q=quiz[current]
+
+question.innerText=q.q
+
+answers.innerHTML=""
+
+q.a.forEach((text,index)=>{
+
+let btn=document.createElement("div")
+
+btn.className="answer"
+
+btn.innerText=text
+
+btn.onclick=()=>selectAnswer(btn,index)
+
+answers.appendChild(btn)
+
+})
+
+}
+
+function selectAnswer(btn,index){
+
+if(answered) return
+
+let correct=quiz[current].correct
+
+if(index===correct){
+
+answered=true
+score++
+
+btn.classList.add("correct")
+
+btn.style.transform="scale(1.15)"
+btn.style.boxShadow="0 0 15px #2ecc71"
+
+}else{
+
+btn.classList.add("wrong")
+
+btn.animate(
+[
+{transform:"translateX(0px)"},
+{transform:"translateX(-8px)"},
+{transform:"translateX(8px)"},
+{transform:"translateX(-8px)"},
+{transform:"translateX(0px)"}
+],
+{duration:300}
+)
+
+setTimeout(()=>{
+btn.classList.remove("wrong")
+},500)
+
+}
+
+}
+
+function nextQuestion(){
+
+if(!answered){
+alert("Bạn cần chọn đáp án đúng trước!")
+return
+}
+
+current++
+
+if(current<quiz.length){
+
+loadQuestion()
+
+}else{
+
+showResult()
+
+}
+
+}
+
+function showResult(){
+
+document.getElementById("box").innerHTML=`
+
+<h1>🎉 Chúc mừng!</h1>
+
+<p>Bạn đạt ${score}/5 điểm</p>
+
+<p>Cùng chúng mình tiếp tục tìm hiểu sâu hơn về tác phẩm của Lưu Quang Vũ.</p>
+
+<br><br>
+
+<button onclick="location.reload()" id="next">Chơi lại</button>
+
+`
+
+launchConfetti()
+
+}
+
+function launchConfetti(){
+
+const canvas=document.getElementById("confetti")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let pieces=[]
+
+for(let i=0;i<80;i++){
+
+pieces.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height-canvas.height,
+size:6,
+speed:2+Math.random()*3,
+color:`hsl(${Math.random()*360},80%,60%)`
+})
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+pieces.forEach(p=>{
+
+ctx.fillStyle=p.color
+ctx.fillRect(p.x,p.y,p.size,p.size)
+
+p.y+=p.speed
+
+if(p.y>canvas.height)p.y=-10
+
+})
+
+requestAnimationFrame(draw)
+
+}
+
+draw()
+
+}
+
+</script>
+
+</body>
+</html>
 </script>
 
 </body>
