@@ -1,321 +1,230 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Quiz Lưu Quang Vũ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
 
-<style>
+    <!-- Confetti -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js"></script>
 
-body{
-font-family:Arial;
-background:linear-gradient(135deg,#6dd5fa,#2980b9);
-margin:0;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-#box{
-background:white;
-width:650px;
-max-width:90%;
-padding:30px;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-text-align:center;
-}
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
 
-h2{
-margin-bottom:20px;
-}
+        body{
+            background: linear-gradient(135deg,#ff9ec4,#ffd6e7);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            overflow:hidden;
+        }
 
-.answer{
-display:block;
-padding:12px;
-margin:10px 0;
-border-radius:10px;
-border:2px solid #ddd;
-cursor:pointer;
-transition:0.25s;
-}
+        .container{
+            background:white;
+            width:90%;
+            max-width:450px;
+            padding:30px;
+            border-radius:30px;
+            text-align:center;
+            box-shadow:0 10px 40px rgba(0,0,0,0.15);
+            position:relative;
+            overflow:hidden;
+        }
 
-.answer:hover{
-transform:scale(1.05);
-background:#f2f8ff;
-}
+        .bear-img{
+            width:220px;
+            height:220px;
+            object-fit:cover;
+            border-radius:20px;
+            margin-bottom:20px;
+        }
 
-.correct{
-background:#2ecc71;
-color:white;
-}
+        h1{
+            font-size:24px;
+            color:#ff4f88;
+            margin-bottom:20px;
+        }
 
-.wrong{
-background:#e74c3c;
-color:white;
-}
+        .buttons{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            flex-wrap:wrap;
+        }
 
-#next{
-margin-top:20px;
-padding:10px 20px;
-border:none;
-background:#3498db;
-color:white;
-border-radius:10px;
-cursor:pointer;
-}
+        .btn{
+            border:none;
+            padding:14px 30px;
+            border-radius:50px;
+            font-size:18px;
+            cursor:pointer;
+            transition:0.3s;
+            font-weight:600;
+        }
 
-#next:hover{
-background:#217dbb;
-}
+        .btn-yes{
+            background:#ff4f88;
+            color:white;
+        }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-pointer-events:none;
-}
+        .btn-yes:hover{
+            transform:scale(1.1);
+        }
 
-</style>
+        .btn-no{
+            background:#ddd;
+        }
+
+        .step{
+            display:none;
+        }
+
+        .active{
+            display:block;
+        }
+
+        .final-message{
+            display:none;
+        }
+
+        .whatsapp-btn{
+            display:none;
+            margin-top:20px;
+            text-decoration:none;
+            background:#25D366;
+            color:white;
+            padding:15px 25px;
+            border-radius:50px;
+            font-weight:bold;
+        }
+
+        .heart{
+            position:absolute;
+            color:red;
+            animation:float 5s linear infinite;
+            opacity:0.7;
+        }
+
+        @keyframes float{
+            from{
+                transform:translateY(100vh);
+            }
+            to{
+                transform:translateY(-100px);
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<canvas id="confetti"></canvas>
+<div class="container">
 
-<div id="box">
+    <!-- Step 1 -->
+    <div class="step active" id="step1">
+        <img src="https://i.pinimg.com/originals/3d/0f/35/3d0f355e3cb811e7b97bd4cffb9e6236.png">
 
-<div id="start">
+        <h1>Khánh Linh, làm prommate của tui nhé? 💖</h1>
 
-<h1>Mini Quiz</h1>
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="step2()">Yes 💕</button>
+            <button class="btn btn-no" id="noBtn"> Từ chối😏 </button>
+        </div>
+    </div>
 
-<p>Chúng ta cùng tìm hiểu về tác giả Lưu Quang Vũ</p>
+    <!-- Step 2 -->
+    <div class="step" id="step2">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8ib1OIepQhn_ssC85Q_M89WADkdHBXEe1fw&s" class="bear-img">
 
-<br><br>
+        <h1>Chắc chưa vậy ông, tôi hài lắm =)) </h1>
 
-<button onclick="startQuiz()" id="next">Bắt đầu</button>
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="step3()">Chắc chắn ❤️</button>
+        </div>
+    </div>
 
-</div>
+    <!-- Step 3 -->
+    <div class="step" id="step3">
+        <img src="https://emojigraph.org/media/apple/nerd-face_1f913.png" class="bear-img">
 
-<div id="quiz" style="display:none">
+        <h1>Cho ông chọn lại :3 </h1>
 
-<h2 id="question"></h2>
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="finish()">Oki</button>
+        </div>
+    </div>
 
-<div id="answers"></div>
+    <!-- Final -->
+    <div class="final-message" id="finalMessage">
+        <img src="https://cdn-media.sforum.vn/storage/app/media/ctv_seo3/meme-meo-cuoi-44.jpg" class="bear-img">
 
-<button id="next" onclick="nextQuestion()">Câu tiếp theo</button>
+        <h1>YAYYYY 💖</h1>
+        <p>Cảm ơn vì đã đồng ý 🥰</p>
 
-</div>
+        <a href="https://www.facebook.com/quoc.anh.1211208/" class="whatsapp-btn" id="messageBtn" target="_blank">
+            Nhắn cho tui để biết thêm chi tiết
+        </a>
+    </div>
 
 </div>
 
 <script>
-
-const quiz=[
-
-{
-q:"Lưu Quang Vũ sinh năm nào?",
-a:["1948","1950","1945","1960"],
-correct:0
-},
-
-{
-q:"Lưu Quang Vũ sinh ra ở đâu?",
-a:["Hà Nội","Phú Thọ","Huế","Đà Nẵng"],
-correct:1
-},
-
-{
-q:"Lĩnh vực Lưu Quang Vũ nổi tiếng nhất là gì?",
-a:["Tiểu thuyết","Hội họa","Kịch","Âm nhạc"],
-correct:2
-},
-
-{
-q:"Ông được biết đến như một trong những nhà viết kịch nổi bật của Việt Nam thời kỳ nào?",
-a:["Sau 1975","Trước 1945","Thời trung đại","Thời phong kiến"],
-correct:0
-},
-
-{
-q:"Tác phẩm nào sau đây là của Lưu Quang Vũ?",
-a:["Tôi và chúng ta","Tắt đèn","Số đỏ","Vợ chồng A Phủ"],
-correct:0
+function step2(){
+    document.getElementById("step1").classList.remove("active");
+    document.getElementById("step2").classList.add("active");
 }
 
-]
-
-let current=0
-let score=0
-let answered=false
-
-const question=document.getElementById("question")
-const answers=document.getElementById("answers")
-
-function startQuiz(){
-
-document.getElementById("start").style.display="none"
-document.getElementById("quiz").style.display="block"
-
-loadQuestion()
-
+function step3(){
+    document.getElementById("step2").classList.remove("active");
+    document.getElementById("step3").classList.add("active");
 }
 
-function loadQuestion(){
+function finish(){
+    document.getElementById("step3").style.display="none";
+    document.getElementById("finalMessage").style.display="block";
+    document.getElementById("messageBtn").style.display="inline-block";
 
-answered=false
-
-let q=quiz[current]
-
-question.innerText=q.q
-
-answers.innerHTML=""
-
-q.a.forEach((text,index)=>{
-
-let btn=document.createElement("div")
-
-btn.className="answer"
-
-btn.innerText=text
-
-btn.onclick=()=>selectAnswer(btn,index)
-
-answers.appendChild(btn)
-
-})
-
+    confetti({
+        particleCount:200,
+        spread:100
+    });
 }
 
-function selectAnswer(btn,index){
+// Nút No chạy mất
+const noBtn = document.getElementById("noBtn");
 
-if(answered) return
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 250 - 120;
+    const y = Math.random() * 250 - 120;
 
-let correct=quiz[current].correct
+    noBtn.style.transform =
+        `translate(${x}px, ${y}px)`;
+});
 
-if(index===correct){
+// Tim bay
+setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.classList.add("heart");
 
-answered=true
-score++
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*20+20+"px";
 
-btn.classList.add("correct")
+    document.body.appendChild(heart);
 
-btn.style.transform="scale(1.15)"
-btn.style.boxShadow="0 0 15px #2ecc71"
+    setTimeout(()=>{
+        heart.remove();
+    },5000);
 
-}else{
-
-btn.classList.add("wrong")
-
-btn.animate(
-[
-{transform:"translateX(0px)"},
-{transform:"translateX(-8px)"},
-{transform:"translateX(8px)"},
-{transform:"translateX(-8px)"},
-{transform:"translateX(0px)"}
-],
-{duration:300}
-)
-
-setTimeout(()=>{
-btn.classList.remove("wrong")
-},500)
-
-}
-
-}
-
-function nextQuestion(){
-
-if(!answered){
-alert("Bạn cần chọn đáp án đúng trước!")
-return
-}
-
-current++
-
-if(current<quiz.length){
-
-loadQuestion()
-
-}else{
-
-showResult()
-
-}
-
-}
-
-function showResult(){
-
-document.getElementById("box").innerHTML=`
-
-<h1>🎉 Chúc mừng!</h1>
-
-<p>Bạn đạt ${score}/5 điểm</p>
-
-<p>Cùng chúng mình tiếp tục tìm hiểu sâu hơn về tác phẩm của Lưu Quang Vũ.</p>
-
-<br><br>
-
-<button onclick="location.reload()" id="next">Chơi lại</button>
-
-`
-
-launchConfetti()
-
-}
-
-function launchConfetti(){
-
-const canvas=document.getElementById("confetti")
-const ctx=canvas.getContext("2d")
-
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-let pieces=[]
-
-for(let i=0;i<80;i++){
-
-pieces.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height-canvas.height,
-size:6,
-speed:2+Math.random()*3,
-color:`hsl(${Math.random()*360},80%,60%)`
-})
-
-}
-
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-pieces.forEach(p=>{
-
-ctx.fillStyle=p.color
-ctx.fillRect(p.x,p.y,p.size,p.size)
-
-p.y+=p.speed
-
-if(p.y>canvas.height)p.y=-10
-
-})
-
-requestAnimationFrame(draw)
-
-}
-
-draw()
-
-}
-
-</script>
-
-</body>
-</html>
+},400);
 </script>
 
 </body>
