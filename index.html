@@ -1,135 +1,154 @@
-export default function LuuButQuocAnh() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-100 via-blue-50 to-white text-slate-800">
-      {/* Hero */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 text-center">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20" />
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lưu bút cuối cấp của Quốc Anh</title>
 
-        <div className="relative z-10 max-w-3xl rounded-[2rem] bg-white/70 p-8 shadow-2xl backdrop-blur-md">
-          <p className="mb-2 text-sm uppercase tracking-[0.3em] text-blue-500">
-            12AV2 • Niên khóa cuối cấp 🎓
-          </p>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #dbeafe, #eff6ff, white);
+      color: #1e293b;
+    }
 
-          <h1 className="mb-4 text-5xl font-bold md:text-6xl">
-            Lưu bút cuối cấp của Quốc Anh
-          </h1>
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
 
-          <p className="mb-6 text-lg text-slate-600 italic">
-            “Một vài lời trước khi chúng ta mỗi người một ngả…”
-          </p>
+    .card {
+      background: white;
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-top: 40px;
+    }
 
-          {/* Thay ảnh sau */}
-          <div className="mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-white shadow-lg">
-            <img
-              src="https://placehold.co/400x400?text=Ảnh+Quốc+Anh"
-              alt="Quốc Anh"
-              className="h-full w-full object-cover"
-            />
-          </div>
+    h1 {
+      font-size: 48px;
+    }
 
-          <a
-            href="#form"
-            className="rounded-full bg-blue-500 px-6 py-3 text-white transition hover:scale-105"
-          >
-            Viết lưu bút ngay 💌
-          </a>
-        </div>
-      </section>
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 20px auto;
+      display: block;
+      border: 5px solid white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
 
-      {/* Music note */}
-      <section className="px-6 text-center">
-        <p className="text-sm text-slate-500">
-          🎵 Nhạc nền: End of Beginning
-        </p>
-      </section>
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      margin-top: 12px;
+      box-sizing: border-box;
+    }
 
-      {/* Form */}
-      <section id="form" className="mx-auto max-w-3xl px-6 py-16">
-        <div className="rounded-[2rem] bg-white p-8 shadow-xl">
-          <h2 className="mb-6 text-3xl font-bold text-center text-blue-600">
-            Viết vài dòng cho Quốc Anh ✨
-          </h2>
+    textarea {
+      min-height: 120px;
+    }
 
-         ```jsx
-<form
-  className="space-y-5"
-  onSubmit={async (e) => {
-    e.preventDefault();
+    button {
+      width: 100%;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 20px;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
 
-    const formData = {
-      name: e.target.name.value,
-      message: e.target.message.value,
-      memory: e.target.memory.value,
-      secret: e.target.secret.value,
-      threeWords: e.target.threeWords.value,
-      anonymous: e.target.anonymous.checked
-    };
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
 
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbxNMlvKJ45M-kQYi902HrjbHALoDFGxXeHUGm5ipb3w-h9clpwJaSAKdaKzofDrYN-Ryg/exec",
-      {
-        method: "POST",
-        body: JSON.stringify(formData)
-      }
-    );
+<body>
 
-    alert("Lưu bút đã gửi thành công 💙");
-    e.target.reset();
-  }}
->
-  <input
-    name="name"
-    type="text"
-    placeholder="Tên của bạn"
-    className="w-full rounded-2xl border p-4"
-  />
+<div class="container">
 
-  <textarea
-    name="message"
-    placeholder="Lời nhắn dành cho Quốc Anh"
-    className="min-h-[120px] w-full rounded-2xl border p-4"
-  />
+  <div class="card">
+    <p>12AV2 • Niên khóa cuối cấp 🎓</p>
 
-  <textarea
-    name="memory"
-    placeholder="Kỷ niệm đáng nhớ nhất với Quốc Anh"
-    className="min-h-[120px] w-full rounded-2xl border p-4"
-  />
+    <h1>Lưu bút cuối cấp của Quốc Anh</h1>
 
-  <textarea
-    name="secret"
-    placeholder="Điều muốn nói nhưng ngại nói 😭"
-    className="min-h-[120px] w-full rounded-2xl border p-4"
-  />
+    <p><i>“Một vài lời trước khi chúng ta mỗi người một ngả…”</i></p>
 
-  <input
-    name="threeWords"
-    type="text"
-    placeholder="Miêu tả Quốc Anh bằng 3 từ"
-    className="w-full rounded-2xl border p-4"
-  />
+    <img
+      class="avatar"
+      src="https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/680408092_1466990315165011_3920777054934235981_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeHtusCPqyzANWNRqVYNZh_RZTMKcHpi7YxlMwpwemLtjMZQpR-MSNLQtQEFkoC2O2TjxR4ySLq7B28NU_Lz38pO&_nc_ohc=C-WRn-HvzFIQ7kNvwEwOGwX&_nc_oc=Adot-VGj2QLMWKbfHPeMg6tYZbGjuTOiN4XAcmasGbza0TPZEqWpnq4RfneiIrntpKk&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-hkg4-1.xx&_nc_ss=7a22e&oh=03_Q7cD5QHFjFbyV51KlmFqoT0zr1CgSFXRWlGt9UOss9vxjk5xEA&oe=6A3FE614"
+      alt="Quốc Anh"
+    >
 
-  <div>
-    <label className="mb-2 block font-medium">
-      Upload ảnh kỷ niệm 📷
-    </label>
-    <input
-      type="file"
-      className="w-full rounded-2xl border p-4"
-    />
+    <p>🎵 Nhạc nền: End of Beginning</p>
   </div>
 
-  <label className="flex items-center gap-3 rounded-2xl border p-4">
-    <input name="anonymous" type="checkbox" />
-    Gửi ẩn danh
-  </label>
+  <div class="card">
+    <h2>Viết vài dòng cho Quốc Anh 💙</h2>
 
-  <button
-    type="submit"
-    className="w-full rounded-2xl bg-blue-500 py-4 text-lg font-semibold text-white transition hover:scale-[1.02]"
-  >
-    Gửi lưu bút 💙
-  </button>
-</form>
+    <form id="luubutForm">
+      <input name="name" type="text" placeholder="Tên của bạn">
+
+      <textarea name="message" placeholder="Lời nhắn dành cho Quốc Anh"></textarea>
+
+      <textarea name="memory" placeholder="Kỷ niệm đáng nhớ nhất với Quốc Anh"></textarea>
+
+      <textarea name="secret" placeholder="Điều muốn nói nhưng ngại nói 😭"></textarea>
+
+      <input name="threeWords" type="text" placeholder="Miêu tả Quốc Anh bằng 3 từ">
+
+      <label>
+        <input name="anonymous" type="checkbox">
+        Gửi ẩn danh
+      </label>
+
+      <button type="submit">
+        Gửi lưu bút 💙
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById("luubutForm")
+.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = {
+    name: this.name.value,
+    message: this.message.value,
+    memory: this.memory.value,
+    secret: this.secret.value,
+    threeWords: this.threeWords.value,
+    anonymous: this.anonymous.checked
+  };
+
+  await fetch(
+    "https://script.google.com/macros/s/AKfycbxNMlvKJ45M-kQYi902HrjbHALoDFGxXeHUGm5ipb3w-h9clpwJaSAKdaKzofDrYN-Ryg/exec",
+    {
+      method: "POST",
+      body: JSON.stringify(formData)
+    }
+  );
+
+  alert("Lưu bút đã gửi thành công 💙");
+  this.reset();
+});
+</script>
+
+</body>
+</html>
 ```
 
