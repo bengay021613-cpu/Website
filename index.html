@@ -50,59 +50,86 @@ export default function LuuButQuocAnh() {
             Viết vài dòng cho Quốc Anh ✨
           </h2>
 
-          <form className="space-y-5">
-            <input
-              type="text"
-              placeholder="Tên của bạn"
-              className="w-full rounded-2xl border p-4"
-            />
+         ```jsx
+<form
+  className="space-y-5"
+  onSubmit={async (e) => {
+    e.preventDefault();
 
-            <textarea
-              placeholder="Lời nhắn dành cho Quốc Anh"
-              className="min-h-[120px] w-full rounded-2xl border p-4"
-            />
+    const formData = {
+      name: e.target.name.value,
+      message: e.target.message.value,
+      memory: e.target.memory.value,
+      secret: e.target.secret.value,
+      threeWords: e.target.threeWords.value,
+      anonymous: e.target.anonymous.checked
+    };
 
-            <textarea
-              placeholder="Kỷ niệm đáng nhớ nhất với Quốc Anh"
-              className="min-h-[120px] w-full rounded-2xl border p-4"
-            />
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbxNMlvKJ45M-kQYi902HrjbHALoDFGxXeHUGm5ipb3w-h9clpwJaSAKdaKzofDrYN-Ryg/exec",
+      {
+        method: "POST",
+        body: JSON.stringify(formData)
+      }
+    );
 
-            <textarea
-              placeholder="Điều muốn nói nhưng ngại nói 😭"
-              className="min-h-[120px] w-full rounded-2xl border p-4"
-            />
+    alert("Lưu bút đã gửi thành công 💙");
+    e.target.reset();
+  }}
+>
+  <input
+    name="name"
+    type="text"
+    placeholder="Tên của bạn"
+    className="w-full rounded-2xl border p-4"
+  />
 
-            <input
-              type="text"
-              placeholder="Miêu tả Quốc Anh bằng 3 từ"
-              className="w-full rounded-2xl border p-4"
-            />
+  <textarea
+    name="message"
+    placeholder="Lời nhắn dành cho Quốc Anh"
+    className="min-h-[120px] w-full rounded-2xl border p-4"
+  />
 
-            <div>
-              <label className="mb-2 block font-medium">
-                Upload ảnh kỷ niệm 📷
-              </label>
-              <input type="file" className="w-full rounded-2xl border p-4" />
-            </div>
+  <textarea
+    name="memory"
+    placeholder="Kỷ niệm đáng nhớ nhất với Quốc Anh"
+    className="min-h-[120px] w-full rounded-2xl border p-4"
+  />
 
-            <label className="flex items-center gap-3 rounded-2xl border p-4">
-              <input type="checkbox" />
-              Gửi ẩn danh
-            </label>
+  <textarea
+    name="secret"
+    placeholder="Điều muốn nói nhưng ngại nói 😭"
+    className="min-h-[120px] w-full rounded-2xl border p-4"
+  />
 
-            <button
-              type="submit"
-              className="w-full rounded-2xl bg-blue-500 py-4 text-lg font-semibold text-white transition hover:scale-[1.02]"
-            >
-              Gửi lưu bút 💙
-            </button>
-          </form>
-        </div>
-      </section>
+  <input
+    name="threeWords"
+    type="text"
+    placeholder="Miêu tả Quốc Anh bằng 3 từ"
+    className="w-full rounded-2xl border p-4"
+  />
 
-      <footer className="pb-10 text-center text-sm text-slate-500">
-        Made with memories for Quốc Anh • 12AV2
-      </footer>
-    </div>
-  )
-}
+  <div>
+    <label className="mb-2 block font-medium">
+      Upload ảnh kỷ niệm 📷
+    </label>
+    <input
+      type="file"
+      className="w-full rounded-2xl border p-4"
+    />
+  </div>
+
+  <label className="flex items-center gap-3 rounded-2xl border p-4">
+    <input name="anonymous" type="checkbox" />
+    Gửi ẩn danh
+  </label>
+
+  <button
+    type="submit"
+    className="w-full rounded-2xl bg-blue-500 py-4 text-lg font-semibold text-white transition hover:scale-[1.02]"
+  >
+    Gửi lưu bút 💙
+  </button>
+</form>
+```
+
