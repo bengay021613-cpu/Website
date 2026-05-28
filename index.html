@@ -1,231 +1,108 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+export default function LuuButQuocAnh() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-sky-100 via-blue-50 to-white text-slate-800">
+      {/* Hero */}
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 text-center">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20" />
 
-    <!-- Confetti -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js"></script>
+        <div className="relative z-10 max-w-3xl rounded-[2rem] bg-white/70 p-8 shadow-2xl backdrop-blur-md">
+          <p className="mb-2 text-sm uppercase tracking-[0.3em] text-blue-500">
+            12AV2 • Niên khóa cuối cấp 🎓
+          </p>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+          <h1 className="mb-4 text-5xl font-bold md:text-6xl">
+            Lưu bút cuối cấp của Quốc Anh
+          </h1>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Poppins',sans-serif;
-        }
+          <p className="mb-6 text-lg text-slate-600 italic">
+            “Một vài lời trước khi chúng ta mỗi người một ngả…”
+          </p>
 
-        body{
-            background: linear-gradient(135deg,#ff9ec4,#ffd6e7);
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            overflow:hidden;
-        }
+          {/* Thay ảnh sau */}
+          <div className="mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-white shadow-lg">
+            <img
+              src="https://placehold.co/400x400?text=Ảnh+Quốc+Anh"
+              alt="Quốc Anh"
+              className="h-full w-full object-cover"
+            />
+          </div>
 
-        .container{
-            background:white;
-            width:90%;
-            max-width:450px;
-            padding:30px;
-            border-radius:30px;
-            text-align:center;
-            box-shadow:0 10px 40px rgba(0,0,0,0.15);
-            position:relative;
-            overflow:hidden;
-        }
-
-        .bear-img{
-            width:220px;
-            height:220px;
-            object-fit:cover;
-            border-radius:20px;
-            margin-bottom:20px;
-        }
-
-        h1{
-            font-size:24px;
-            color:#ff4f88;
-            margin-bottom:20px;
-        }
-
-        .buttons{
-            display:flex;
-            justify-content:center;
-            gap:15px;
-            flex-wrap:wrap;
-        }
-
-        .btn{
-            border:none;
-            padding:14px 30px;
-            border-radius:50px;
-            font-size:18px;
-            cursor:pointer;
-            transition:0.3s;
-            font-weight:600;
-        }
-
-        .btn-yes{
-            background:#ff4f88;
-            color:white;
-        }
-
-        .btn-yes:hover{
-            transform:scale(1.1);
-        }
-
-        .btn-no{
-            background:#ddd;
-        }
-
-        .step{
-            display:none;
-        }
-
-        .active{
-            display:block;
-        }
-
-        .final-message{
-            display:none;
-        }
-
-        .whatsapp-btn{
-            display:none;
-            margin-top:20px;
-            text-decoration:none;
-            background:#25D366;
-            color:white;
-            padding:15px 25px;
-            border-radius:50px;
-            font-weight:bold;
-        }
-
-        .heart{
-            position:absolute;
-            color:red;
-            animation:float 5s linear infinite;
-            opacity:0.7;
-        }
-
-        @keyframes float{
-            from{
-                transform:translateY(100vh);
-            }
-            to{
-                transform:translateY(-100px);
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- Step 1 -->
-    <div class="step active" id="step1">
-        <img src="https://i.pinimg.com/originals/3d/0f/35/3d0f355e3cb811e7b97bd4cffb9e6236.png">
-
-        <h1>Khánh Linh, làm prommate của tui nhé? 💖</h1>
-
-        <div class="buttons">
-            <button class="btn btn-yes" onclick="step2()">Yes 💕</button>
-            <button class="btn btn-no" id="noBtn"> Từ chối😏 </button>
+          <a
+            href="#form"
+            className="rounded-full bg-blue-500 px-6 py-3 text-white transition hover:scale-105"
+          >
+            Viết lưu bút ngay 💌
+          </a>
         </div>
-    </div>
+      </section>
 
-    <!-- Step 2 -->
-    <div class="step" id="step2">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8ib1OIepQhn_ssC85Q_M89WADkdHBXEe1fw&s" class="bear-img">
+      {/* Music note */}
+      <section className="px-6 text-center">
+        <p className="text-sm text-slate-500">
+          🎵 Nhạc nền: End of Beginning
+        </p>
+      </section>
 
-        <h1>Chắc chưa vậy ông, tôi hài lắm =)) </h1>
+      {/* Form */}
+      <section id="form" className="mx-auto max-w-3xl px-6 py-16">
+        <div className="rounded-[2rem] bg-white p-8 shadow-xl">
+          <h2 className="mb-6 text-3xl font-bold text-center text-blue-600">
+            Viết vài dòng cho Quốc Anh ✨
+          </h2>
 
-        <div class="buttons">
-            <button class="btn btn-yes" onclick="step3()">Chắc chắn ❤️</button>
+          <form className="space-y-5">
+            <input
+              type="text"
+              placeholder="Tên của bạn"
+              className="w-full rounded-2xl border p-4"
+            />
+
+            <textarea
+              placeholder="Lời nhắn dành cho Quốc Anh"
+              className="min-h-[120px] w-full rounded-2xl border p-4"
+            />
+
+            <textarea
+              placeholder="Kỷ niệm đáng nhớ nhất với Quốc Anh"
+              className="min-h-[120px] w-full rounded-2xl border p-4"
+            />
+
+            <textarea
+              placeholder="Điều muốn nói nhưng ngại nói 😭"
+              className="min-h-[120px] w-full rounded-2xl border p-4"
+            />
+
+            <input
+              type="text"
+              placeholder="Miêu tả Quốc Anh bằng 3 từ"
+              className="w-full rounded-2xl border p-4"
+            />
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Upload ảnh kỷ niệm 📷
+              </label>
+              <input type="file" className="w-full rounded-2xl border p-4" />
+            </div>
+
+            <label className="flex items-center gap-3 rounded-2xl border p-4">
+              <input type="checkbox" />
+              Gửi ẩn danh
+            </label>
+
+            <button
+              type="submit"
+              className="w-full rounded-2xl bg-blue-500 py-4 text-lg font-semibold text-white transition hover:scale-[1.02]"
+            >
+              Gửi lưu bút 💙
+            </button>
+          </form>
         </div>
+      </section>
+
+      <footer className="pb-10 text-center text-sm text-slate-500">
+        Made with memories for Quốc Anh • 12AV2
+      </footer>
     </div>
-
-    <!-- Step 3 -->
-    <div class="step" id="step3">
-        <img src="https://emojigraph.org/media/apple/nerd-face_1f913.png" class="bear-img">
-
-        <h1>Cho ông chọn lại :3 </h1>
-
-        <div class="buttons">
-            <button class="btn btn-yes" onclick="finish()">Oki</button>
-        </div>
-    </div>
-
-    <!-- Final -->
-    <div class="final-message" id="finalMessage">
-        <img src="https://cdn-media.sforum.vn/storage/app/media/ctv_seo3/meme-meo-cuoi-44.jpg" class="bear-img">
-
-        <h1>YAYYYY 💖</h1>
-        <p>Cảm ơn vì đã đồng ý 🥰</p>
-
-        <a href="https://www.facebook.com/quoc.anh.1211208/" class="whatsapp-btn" id="messageBtn" target="_blank">
-            Nhắn cho tui để biết thêm chi tiết
-        </a>
-    </div>
-
-</div>
-
-<script>
-function step2(){
-    document.getElementById("step1").classList.remove("active");
-    document.getElementById("step2").classList.add("active");
+  )
 }
-
-function step3(){
-    document.getElementById("step2").classList.remove("active");
-    document.getElementById("step3").classList.add("active");
-}
-
-function finish(){
-    document.getElementById("step3").style.display="none";
-    document.getElementById("finalMessage").style.display="block";
-    document.getElementById("messageBtn").style.display="inline-block";
-
-    confetti({
-        particleCount:200,
-        spread:100
-    });
-}
-
-// Nút No chạy mất
-const noBtn = document.getElementById("noBtn");
-
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * 250 - 120;
-    const y = Math.random() * 250 - 120;
-
-    noBtn.style.transform =
-        `translate(${x}px, ${y}px)`;
-});
-
-// Tim bay
-setInterval(()=>{
-    const heart = document.createElement("div");
-    heart.innerHTML="❤️";
-    heart.classList.add("heart");
-
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=Math.random()*20+20+"px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },5000);
-
-},400);
-</script>
-
-</body>
-</html>
